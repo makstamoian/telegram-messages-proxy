@@ -3,6 +3,7 @@ const TelegramBotApi = require("node-telegram-bot-api");
 const fs = require("fs/promises");
 const token = process.env.TELEGRAM_API_TOKEN;
 const userIdProxy = process.env.USER_ID_TO_PROXY;
+const adminUsername = process.env.ADMIN_USERNAME;
 console.log("Token: " + token);
 
 const bot = new TelegramBotApi(token, { polling: true });
@@ -11,7 +12,7 @@ let state = {};
 
 bot.on("message", async (msg) => {
   if (msg.text === "/start") {
-    if (msg.from.username === "maxtamoian") {
+    if (msg.from.username === adminUsername) {
       bot.sendMessage(msg.from.id, "Hello, dear administrator!");
       bot.sendMessage(msg.from.id, "Current user id to proxy: " + msg.from.id);
     } else {
@@ -23,7 +24,7 @@ bot.on("message", async (msg) => {
       state[msg.from.username].userid = msg.from.id;
     }
   } else {
-    if (msg.from.username === "maxtamoian") {
+    if (msg.from.username === adminUsername) {
       if (msg.text[0] !== "/" && msg.text[0] === "@") {
         bot.sendMessage(userIdProxy, "Got @");
         const data = msg.text;
@@ -42,7 +43,7 @@ bot.on("message", async (msg) => {
     }
   }
 
-  if (msg.text === "/listusers" && msg.from.username === "maxtamoian") {
+  if (msg.text === "/listusers" && msg.from.username === adminUsername) {
     const json = JSON.stringify(state);
     bot.sendMessage(msg.from.id, json);
   }
