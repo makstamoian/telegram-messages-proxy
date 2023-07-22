@@ -30,7 +30,7 @@ bot.on("message", async (msg) => {
         const data = msg.text;
         const atsign = data.indexOf("@");
         const space = data.indexOf(" ");
-        const username = data.substring(atsign, space);
+        const username = data.substring(atsign + 1, space);
         if (username in state) {
           const userid = state[username].userid;
           bot.sendMessage(userid, data);
