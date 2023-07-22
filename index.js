@@ -26,7 +26,7 @@ bot.on("message", async (msg) => {
   } else {
     if (msg.from.username === adminUsername) {
       if (msg.text[0] !== "/" && msg.text[0] === "@") {
-        bot.sendMessage(userIdProxy, "Got @");
+        // bot.sendMessage(userIdProxy, "Got @");
         const data = msg.text;
         const atsign = data.indexOf("@");
         const space = data.indexOf(" ");
