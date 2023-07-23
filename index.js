@@ -72,18 +72,22 @@ bot.on("message", async (msg) => {
       }
     } else {
       if (msg.text) {
-        bot.sendMessage(userIdProxy, msg.text);
+        bot.sendMessage(userIdProxy, msg.text + " (" + msg.from.username + ")");
       }
       if (msg.audio) {
+        bot.sendMessage(userIdProxy, " (" + msg.from.username + ")")
         bot.sendAudio(userIdProxy, msg.audio);
       }
       if (msg.photo) {
+        bot.sendMessage(userIdProxy, " (" + msg.from.username + ")")
         bot.sendPhoto(userIdProxy, msg.photo)
       }
       if (msg.location) {
+        bot.sendMessage(userIdProxy, " (" + msg.from.username + ")")
         bot.sendLocation(userIdProxy, msg.location)
       }
       if (msg.document) {
+        bot.sendMessage(userIdProxy, " (" + msg.from.username + ")")
         bot.sendDocument(userIdProxy, msg.document)
       }
     }
