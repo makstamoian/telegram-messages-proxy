@@ -64,12 +64,12 @@ bot.on("message", async (msg) => {
         if (username in state) {
           const userid = state[username].userid;
           bot.sendMessage(userid, data);
-        } else if (username === "all"){
+        } else if (username === "all") {
           for (let user in state) {
-            // bot.sendMessage(state[user].userid, data)
-            console.log("Sent to " + user)
-          }          
-        }else {
+            bot.sendMessage(state[user].userid, data);
+            console.log("Sent to " + user);
+          }
+        } else {
           bot.sendMessage(userIdProxy, "No such user in database");
         }
       }
@@ -78,20 +78,20 @@ bot.on("message", async (msg) => {
         bot.sendMessage(userIdProxy, msg.text + " (" + msg.from.username + ")");
       }
       if (msg.audio) {
-        bot.sendMessage(userIdProxy, " (" + msg.from.username + ")")
+        bot.sendMessage(userIdProxy, " (" + msg.from.username + ")");
         bot.sendAudio(userIdProxy, msg.audio);
       }
       if (msg.photo) {
-        bot.sendMessage(userIdProxy, " (" + msg.from.username + ")")
-        bot.sendPhoto(userIdProxy, msg.photo)
+        bot.sendMessage(userIdProxy, " (" + msg.from.username + ")");
+        bot.sendPhoto(userIdProxy, msg.photo);
       }
       if (msg.location) {
-        bot.sendMessage(userIdProxy, " (" + msg.from.username + ")")
-        bot.sendLocation(userIdProxy, msg.location)
+        bot.sendMessage(userIdProxy, " (" + msg.from.username + ")");
+        bot.sendLocation(userIdProxy, msg.location);
       }
       if (msg.document) {
-        bot.sendMessage(userIdProxy, " (" + msg.from.username + ")")
-        bot.sendDocument(userIdProxy, msg.document)
+        bot.sendMessage(userIdProxy, " (" + msg.from.username + ")");
+        bot.sendDocument(userIdProxy, msg.document);
       }
     }
   }
