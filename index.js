@@ -47,7 +47,7 @@ bot.on("message", async (msg) => {
     } else {
       bot.sendMessage(
         msg.from.id,
-        "You can send message to administrator of this bot (Age Of Conan username: Choopo). Also you left fingerprint in Choopo's system of talks tracking"
+        "You can send message to Administrator of this bot. Also you left fingerprint in Administrator's system of talks tracking"
       );
       state[msg.from.username] = {};
       state[msg.from.username].userid = msg.from.id;
