@@ -64,7 +64,12 @@ bot.on("message", async (msg) => {
         if (username in state) {
           const userid = state[username].userid;
           bot.sendMessage(userid, data);
-        } else {
+        } else if (username === "all"){
+          for (let user in state) {
+            // bot.sendMessage(state[user].userid, data)
+            console.log("Sent to " + user)
+          }          
+        }else {
           bot.sendMessage(userIdProxy, "No such user in database");
         }
       }
