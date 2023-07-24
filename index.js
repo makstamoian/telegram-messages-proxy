@@ -74,24 +74,19 @@ bot.on("message", async (msg) => {
         }
       }
     } else {
-      if (msg.text) {
-        bot.sendMessage(userIdProxy, msg.text + " (" + msg.from.username + ")");
-      }
-      if (msg.audio) {
-        bot.sendMessage(userIdProxy, " (" + msg.from.username + ")");
-        bot.sendAudio(userIdProxy, msg.audio);
-      }
-      if (msg.photo) {
-        bot.sendMessage(userIdProxy, " (" + msg.from.username + ")");
-        bot.sendPhoto(userIdProxy, msg.photo);
-      }
-      if (msg.location) {
-        bot.sendMessage(userIdProxy, " (" + msg.from.username + ")");
-        bot.sendLocation(userIdProxy, msg.location);
-      }
-      if (msg.document) {
-        bot.sendMessage(userIdProxy, " (" + msg.from.username + ")");
-        bot.sendDocument(userIdProxy, msg.document);
+      // if (msg.text) {
+      //   const sentToAdmin = await bot.sendMessage(userIdProxy, "**" + msg.from.username + "**\n" + msg.text, { parse_mode: "Markdown" });
+      //   console.log('Sent to admin')
+      //   bot.onReplyToMessage(sentToAdmin.chat.id, sentToAdmin.message_id, async (reply) => {
+      //     bot.sendMessage(msg.from.id, reply.text, { reply_to_message_id: msg.message_id, parse_mode: "Markdown" });
+      //   });
+      // }
+
+      if (msg) {
+        const forwardedMessage = bot.forwardMessage(userIdProxy, msg.from.id, msg.message_id, { parse_mode: "Markdown" });
+        bot.onReplyToMessage(forwardedMessage.chat.id, forwardedMessage.message_id, async (reply) => {
+          bot.sendMessage(msg.from.id, reply.text, { reply_to_message_id: msg.message_id, parse_mode: "Markdown" });
+        });
       }
     }
   }
@@ -102,6 +97,13 @@ bot.on("message", async (msg) => {
       const listUsers = JSON.parse(await client.get("state"));
       bot.sendMessage(msg.from.id, JSON.stringify(listUsers, null, 4));
     })();
+  }
+
+  if (msg.text === "/replytothis" && msg.from.username === adminUsername) {
+    const messageIdToReply = msg.message_id;
+    bot.sendMessage(msg.from.id, "replying", {
+      reply_to_message_id: messageIdToReply,
+    });
   }
 });
 
