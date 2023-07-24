@@ -75,11 +75,22 @@ bot.on("message", async (msg) => {
       }
     } else {
       if (msg.text) {
-        const sentToAdmin = await bot.sendMessage(userIdProxy, "**" + msg.from.username + "**\n" + msg.text, { parse_mode: "Markdown" });
-        console.log('Sent to admin')
-        bot.onReplyToMessage(sentToAdmin.chat.id, sentToAdmin.message_id, async (reply) => {
-          bot.sendMessage(msg.from.id, reply.text, { reply_to_message_id: msg.message_id, parse_mode: "Markdown" });
-        });
+        const sentToAdmin = await bot.sendMessage(
+          userIdProxy,
+          "**" + msg.from.username + "**\n" + msg.text,
+          { parse_mode: "Markdown" }
+        );
+        console.log("Sent to admin");
+        bot.onReplyToMessage(
+          sentToAdmin.chat.id,
+          sentToAdmin.message_id,
+          async (reply) => {
+            bot.sendMessage(msg.from.id, reply.text, {
+              reply_to_message_id: msg.message_id,
+              parse_mode: "Markdown",
+            });
+          }
+        );
       }
     }
   }
